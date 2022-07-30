@@ -1,0 +1,191 @@
+SELECT user_account.account_id, user_account.account_name
+FROM accounts, user_account 
+WHERE accounts.account_id = user_account.account_id  
+AND user_account.account_id <> {account_id} 
+AND user_account.user_login = '[var_user_login]' 
+ORDER BY account_desc
+
+account_id
+SELECT user_account.account_id, user_account.account_name
+FROM accounts, user_account 
+WHERE accounts.account_id = user_account.account_id 
+AND user_account.user_login = '[var_user_login]' 
+ORDER BY account_desc
+
+para mostrar diferente al que estoy logeado
+select user_login, account_id, account_name
+from user_account
+where user_account.user_login <> '[var_user_login]'
+
+
+onaplicationlnit
+$idioma = substr($_SERVER["HTTP_ACCEPT_LANGUAGE"], 0, 2);
+switch($idioma){
+	case 'pt': //Caso seja português
+		sc_set_language('pt_br');
+		break;
+	case 'es': //Caso seja espanhol
+		sc_set_language('es');
+		break;
+	default:
+		sc_set_language('en_us');
+		break;
+}
+
+onSprinptlnit
+if(isset($_GET['lang']) && !empty($_GET['lang']))
+{
+	switch($_GET['lang']){
+		case 'pt': //Caso seja português
+			sc_set_language('pt_br');
+			break;
+		case 'es': //Caso seja espanhol
+			sc_set_language('es');
+			break;
+		default:
+			sc_set_language('en_us');
+			break;
+		}
+}
+
+
+
+onApplicationlnit
+sc_reset_apl_conf("sec_retrieve_pswd");
+
+
+
+login  {lang_othr_frmu_titl}
+
+
+links=
+sec_retrieve_pswd
+
+
+... {lang_othr_frmu_titl}
+<p class="descricao">{lang_page_desc}{lang_page_button_download}</p>
+
+banderas = <a class="flags" href="../login/login.php?lang=en"><img src="{SC_LIB_PROJECT}finances/img/en_us.png"></a>
+							<a class="flags" href="../login/login.php?lang=pt"><img src="{SC_LIB_PROJECT}finances/img/pt_br.png"></a>
+							<a class="flags" href="../login/login.php?lang=es"><img src="{SC_LIB_PROJECT}finances/img/es_es.png"></a>
+
+{lang_page_title}
+
+<div class="copyright">
+  <p>{lang_page_copyright}</p>
+</div>
+
+imagen htmal
+img-background
+<meta descryption="
+{lang_page_desc}" />
+
+transfer_transactional
+$upd_acc2 = "UPDATE user_account SET current_value = (current_value + '".{transaction_actual_amount}."' ) WHERE user_login <> '".[var_user_login]."' AND account_id = ".{transfer_to};
+		sc_exec_sql($upd_acc2);
+	}
+// Insertar registro agregando a otra cuenta
+		$check_sql = "SELECT current_value FROM user_account WHERE user_login <> '".[var_user_login]."' AND account_id = ".{transfer_to};
+		sc_lookup(rs2, $check_sql);
+
+transfer_transation
+if({transac_type_id} == 1){	
+
+	$check_sql = "
+	SELECT MAX(transaction_id) 
+	FROM transactions_account 
+	WHERE user_login = '".[var_user_login]."' 
+	AND transaction_types_id = 1 ";
+	sc_lookup(rs, $check_sql);
+
+	if (isset({rs[0][0]}))     // Row found
+	{
+		$cur_val_acc = {transaction_balance_account} - {transaction_actual_amount};
+		$cur_val_all_acc = {transaction_balance_all} - {transaction_actual_amount};
+		// Insert record removing from an account
+		$insert_sql = "INSERT INTO transactions_account (user_login, account_id, transaction_types_id, category_id, transfer_transaction_id, transaction_actual_amount, transaction_date, transaction_consumed, transaction_recurrence, transaction_balance_account, transaction_balance_all) 
+			 VALUES ('".[var_user_login]."', ".{account_id}.", 3, 3, ".{rs[0][0]}.", '".{transaction_actual_amount}."', ". sc_sql_protect({transaction_date}, 'date') .", 'Y', 'N', '".$cur_val_acc."', '".$cur_val_all_acc."')";
+		sc_exec_sql($insert_sql);
+		
+		// Actualizar el importe actual en la cuenta de origen
+		$upd_acc = "UPDATE user_account SET current_value = (current_value - '".{transaction_actual_amount}."' ) WHERE user_login = '".[var_user_login]."' AND account_id = ".{account_id};
+		sc_exec_sql($upd_acc);
+		
+		
+		
+		// Insertar registro agregando a otra cuenta
+		$check_sql = "SELECT current_value FROM user_account WHERE user_login = '".[var_user_login]."' AND account_id = ".{transfer_to};
+		sc_lookup(rs2, $check_sql);
+
+		if (isset({rs2[0][0]}))     //  Fila encontrada
+		{
+			$cur_val_acc = {rs2[0][0]} + {transaction_actual_amount};
+			$cur_val_all_acc = {transaction_balance_all};
+		}
+		
+		$insert_sql2 = "INSERT INTO transactions_account (user_login, account_id, transaction_types_id, category_id, transfer_transaction_id, transaction_actual_amount, transaction_date, transaction_consumed, transaction_recurrence, transaction_balance_account, transaction_balance_all) 
+			 VALUES ('".[var_user_login]."', ".{transfer_to}.", 2, 2, ".{rs[0][0]}.", '".{transaction_actual_amount}."', ". sc_sql_protect({transaction_date}, 'date') .", 'Y', 'N', '".$cur_val_acc."', '".$cur_val_all_acc."')";
+		sc_exec_sql($insert_sql2);	
+		
+		// Actualizar el monto actual en la cuenta de destino
+		$upd_acc2 = "UPDATE user_account SET current_value = (current_value + '".{transaction_actual_amount}."' ) WHERE user_login = '".[var_user_login]."' AND account_id = ".{transfer_to};
+		sc_exec_sql($upd_acc2);
+	}
+}
+
+
+if ( $Theme <> 'Sc9_SweetCoral' )
+
+
+echo $Theme;
+	
+sc_set_theme('Sc9_SweetCoral');
+
+
+LIN1_COL2 {lang_othr_frmu_titl} - {lang_tble_sec_users}
+	
+
+titulo de la tablanuevas trasaccione={lang_othr_frmi_titl} - {lang_tble_sec_users}
+
+
+user_name permisos : {lang_othr_frmu_titl} - {lang_tble_sec_users}
+
+
+
+name{lang_sec_users_fld_user_name}
+
+
+
+1,325,412,552	aleja123@gmail.com	Y	Sí
+	
+carlos	1,003,042,880	cralosfdr@gmail.com	 	No
+	
+efrain	1,235,408,052	efrain@gmail.com	Y	Sí
+	
+leider	1,246,568,284	leider234@gmail.com	Y	Sí
+	
+sample	1,002,458,724
+
+
+{lang_list_users}
+
+-{lang_list_users}-
+/{lang_sec_users_fld_user_name}/
+
+/*{lang_othr_frmu_titl} - {lang_tbl_accounts}*/
+SELECT category_desc 
+FROM categories 
+WHERE category_id = {category_id} 
+ORDER BY category_desc
+
+{lang_expense}3
+{lang_income}2
+{lang_transfer}1
+
+
+
+titulo dedasboar
+{lang_total_account}
+
+tracciones
+{lang_menu_iten_transaction}

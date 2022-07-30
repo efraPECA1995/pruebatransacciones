@@ -1,0 +1,31 @@
+selectt que traiga elmnonto dela encvuenta en la que voy a tranferir y ese monto y sumar el valor de laconsulta anterioo y actualizar a esemismo usuario
+
+ lo que quitamos
+user_login = '".[var_user_login]."' AND
+d
+
+todod lo bueno
+SQL:BatchStarting	SELECT current_value FROM user_account WHERE user_login = 'efrain' AND account_id = 2	PHP		sa					800	56	2022-07-28 15:43:53.937			
+
+SELECT current_value FROM user_account WHERE user_login = 'efrain' AND account_id = 2
+
+SELECT SUM(current_value) FROM user_account WHERE user_login = 'efrain'
+
+INSERT INTO transactions_account (user_login, account_id, transaction_types_id, category_id, transfer_transaction_id, transfer_to, transaction_projected_amount, transaction_actual_amount, transaction_date, transaction_time_notif, transaction_desc, transaction_consumed, transaction_recurrence, transaction_period, transaction_num, transaction_num_total, transaction_balance_account, transaction_balance_all) VALUES ('efrain', 2, 3, 0, null, leider, 0, 1000000.00, '2022-07-28', null, '', 'Y', 'N', '', 1, 1, 2980000.00, 2980000.00)
+
+SELECT MAX(transaction_id) 
+	FROM transactions_account 
+	WHERE user_login = 'efrain' 
+	AND transaction_types_id = 1 
+
+
+INSERT INTO transactions_account (user_login, account_id, transaction_types_id, category_id, transfer_transaction_id, transaction_actual_amount, transaction_date, transaction_consumed, transaction_recurrence, transaction_balance_account, transaction_balance_all)  VALUES ('efrain', 2, 3, 3, 429, '1000000.00', '2022-07-28', 'Y', 'N', '1980000', '1980000'
+
+UPDATE user_account SET current_value = (current_value - '1000000.00' ) WHERE user_login = 'efrain' AND account_id = 2
+
+
+SELECT current_value FROM user_account WHERE user_login = 'efrain' AND user_login = leider
+UPDATE user_account SET current_value = (current_value + '1000000.00' ) WHERE  user_login = 'leider'
+
+
+INSERT INTO transactions_account (user_login, account_id, transaction_types_id, category_id, transfer_transaction_id, transaction_actual_amount, transaction_date, transaction_consumed, transaction_recurrence, transaction_balance_account, transaction_balance_all)  VALUES ('efrain', 'leider', 2, 2, 429, '1000000.00', '2022-07-28', 'Y', 'N', '1980000', '1980000')
